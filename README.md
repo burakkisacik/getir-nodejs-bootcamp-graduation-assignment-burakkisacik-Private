@@ -12,7 +12,7 @@ A RESTful API with a single endpoint that fetches the data in the provided Mongo
 
 # Deployed URL
 
-> URL: https://getir-case-study.herokuapp.com/
+> URL: https://getir-case-study-burakkisacik.herokuapp.com/
 
 > Endpoint : POST /api/v1/records
 
