@@ -1,14 +1,28 @@
+const asyncHandler = require("../middleware/asyncHandler");
 const { findByDateAndCountRange } = require("../services/Records");
 
-const getFilteredRecords = async (req, res) => {
-  try {
-    const filteredRecords = await findByDateAndCountRange(req.body);
+const getFilteredRecords = asyncHandler(async (req, res, next) => {
+  const filteredRecords = await findByDateAndCountRange(req.body);
 
-    res.status(200).send(filteredRecords);
-  } catch (error) {
-    res.status(500).send(error);
+  if (filteredRecords.length < 1) {
+    res.status(404).send("No records found");
+    return;
   }
-};
+
+  const records = filteredRecords.map((record) => ({
+    key: record.key,
+    createdAt: record.createdAt,
+    totalCount: record.total_count.sum,
+  }));
+
+  const responsePayload = {
+    code: 0,
+    msg: "success",
+    records,
+  };
+
+  res.status(200).json(responsePayload);
+});
 
 module.exports = {
   getFilteredRecords,
