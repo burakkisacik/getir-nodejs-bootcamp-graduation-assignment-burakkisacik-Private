@@ -53,6 +53,17 @@ npm test
 
 > POST /api/v1/records
 
+## Request Payload
+
+```JSON
+{
+   "startDate": "2015-01-01",
+    "endDate": "2016-01-01",
+    "minCount": 0,
+    "maxCount": 10,
+}
+```
+
 | Parameter | Type    | Description                                |
 | --------- | ------- | ------------------------------------------ |
 | startDate | String  | format => YYYY-MM-DD & results will be gte |
