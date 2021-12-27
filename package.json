@@ -1,0 +1,27 @@
+{
+  "name": "getir-assignment",
+  "version": "1.0.0",
+  "description": "getir Node.js assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write ./src/**/*.js",
+    "lint": "eslint ./src/**/*.js",
+    "dev": "nodemon src/app.js",
+    "start": "NODE_ENV=production node src/app.js"
+  },
+  "author": "Burak Kısacık",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.3.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-prettier": "^4.0.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1"
+  },
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
