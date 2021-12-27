@@ -1,12 +1,14 @@
 const express = require("express");
 
+// Routes
+const { RecordRoute } = require("./routes");
+
 const app = express();
 
 app.use(express.json());
 
-app.get("/api/v1/records", (req, res) => {
-  res.status(200).send("hello");
-});
+// Mount Routes
+app.use("/api/v1/records", RecordRoute);
 
 const PORT = process.env.PORT || 3000;
 
