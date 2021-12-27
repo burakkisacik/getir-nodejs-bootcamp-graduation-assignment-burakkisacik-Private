@@ -44,7 +44,7 @@ describe("POST /api/v1/records", () => {
       });
 
       expect(response.statusCode).toBe(400);
-      expect(response.body.error).toBe(
+      expect(response.body.msg).toBe(
         '"startDate" must be in [YYYY-MM-DD] format'
       );
     });
@@ -58,7 +58,7 @@ describe("POST /api/v1/records", () => {
       });
 
       expect(response.statusCode).toBe(400);
-      expect(response.body.error).toBe(
+      expect(response.body.msg).toBe(
         '"startDate" must be in [YYYY-MM-DD] format'
       );
     });
@@ -74,7 +74,7 @@ describe("POST /api/v1/records", () => {
       });
 
       expect(response.statusCode).toBe(400);
-      expect(response.body.error).toBe('"minCount" must be a number');
+      expect(response.body.msg).toBe('"minCount" must be a number');
     });
 
     test("should response with bad request to float input", async () => {
@@ -86,7 +86,7 @@ describe("POST /api/v1/records", () => {
       });
 
       expect(response.statusCode).toBe(400);
-      expect(response.body.error).toBe('"minCount" must be an integer');
+      expect(response.body.msg).toBe('"minCount" must be an integer');
     });
   });
 
@@ -101,7 +101,20 @@ describe("POST /api/v1/records", () => {
       });
 
       expect(response.statusCode).toBe(400);
-      expect(response.body.error).toBe('"extra" is not allowed');
+      expect(response.body.msg).toBe('"extra" is not allowed');
+    });
+  });
+
+  describe("given request payload has missing fields", () => {
+    test("should response with bad request to missing fields", async () => {
+      const response = await request(app).post("/api/v1/records").send({
+        startDate: "2015-01-01",
+        minCount: 0,
+        maxCount: 100,
+      });
+
+      expect(response.statusCode).toBe(400);
+      expect(response.body.msg).toBe('"endDate" is required');
     });
   });
 });

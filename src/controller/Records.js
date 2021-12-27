@@ -2,6 +2,11 @@ const ErrorResponse = require("../utils/ErrorResponse");
 const asyncHandler = require("../middleware/asyncHandler");
 const { findByDateAndCountRange } = require("../services/Records");
 
+/* 
+  @desc    Filter records by date and count range
+  @route   POST /api/v1/records
+  @access  public
+*/
 const getFilteredRecords = asyncHandler(async (req, res, next) => {
   const filteredRecords = await findByDateAndCountRange(req.body);
 

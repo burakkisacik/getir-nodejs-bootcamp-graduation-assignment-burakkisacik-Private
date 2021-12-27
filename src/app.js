@@ -40,6 +40,9 @@ app.use(xss());
 app.use(hpp());
 
 // Enable CORS
+/* 
+  For further front end development the cors config should be as follows
+*/
 app.use(
   cors({
     methods: "*",
