@@ -1,26 +1,74 @@
-# Getir Node.js Bootcamp Graduation Project
-## The Challenge
-We’d like you to create a RESTful API with a single endpoint that fetches the data in the provided MongoDB collection and return the results in the requested format.
-Requirements
-- The code should be written in Node.js using express framework
-- The endpoint should just handle HTTP POST requests.
-- The application should be deployed on AWS or Heroku. You don’t need to use any API Gateway, Load Balancers or any other layer than the developed application.
-- The up to date repo should be publicly available in Github, Bitbucket or equivalent.
+<h1 align="center">
+    Getir Case Study
+</h1>
 
-## Deliverables
-- The public repo URL which has the source code of the project, and a set of instructions if there is any project specific configurations needed to run the project.
-- The public endpoint URL of the deployed API which is available for testing.
+<p align="center">
+  <img src="https://cdn.getir.com/marketing/Getir_Logo_1621812382342.png" alt="getirLogo" style="width:200px; height:200px"/>
+</p>
 
-## Worth Highlighting
-We expect these requirements can be delivered in 3 to 6 hours. However, it is not a speed test. Take your time! Your feedback on how much actual time you were needed to deliver the task will be very helpful but will not be used for the evaluation.
-You are free to use any libraries to deliver the needed functionality, but be prepared to explain other solutions that you would have implemented if you have more time.
+# Description
 
-## Crucial Points
-- Delivering a Working RESTful API.
-- Clean and Production Ready Code
-- Error Handling
-- Comments and Documentation
-- Unit and/or Integration Tests (Jest is preferable but Mocha also works)
-- Avoid Over Engineering
+A RESTful API with a single endpoint that fetches the data in the provided MongoDB collection and return the results in the requested format
 
-Good luck with this assignment! Try to make good use of this task to demonstrate and show off your coding skills. If you have any questions, don’t hesitate to ask your contact person within Getir.
+# Installation
+
+```Bash
+git clone https://github.com/burakkisacik/getir-nodejs-bootcamp-graduation-assignment-burakkisacik-Private.git
+```
+
+```Bash
+ cd into the folder
+ npm install
+ npm run dev
+```
+
+# Example DB Schema
+
+<p align="center">
+  <img src="resources/dbSchema.png" alt="dbSchema" style="width:200px; height:200px"/>
+</p>
+
+# Endpoints
+
+| Method | Routes          |            Request Payload             |        Return |
+| ------ | --------------- | :------------------------------------: | ------------: |
+| Post   | /api/v1/records | startDate, endDate, maxCount, minCount | filtered data |
+
+# How it works
+
+## Example Request
+
+```JavaScript
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+const raw = JSON.stringify({
+  "startDate": "2015-01-01",
+  "endDate": "2016-01-01",
+  "minCount": 0,
+  "maxCount": 100
+});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://localhost:3000/api/v1/recordss", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+## Example Response
+
+```JSON
+{
+    "startDate" : "2015-01-01",
+    "endDate" : "2016-01-01",
+    "minCount" : 0,
+    "maxCount" : 100
+}
+```
