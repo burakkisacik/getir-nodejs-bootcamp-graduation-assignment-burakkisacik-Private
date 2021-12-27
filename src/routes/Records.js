@@ -1,9 +1,9 @@
 const express = require("express");
 
+const { getFilteredRecords } = require("../controller/Records");
+
 const router = express.Router();
 
-router.route("/").post((req, res) => {
-  res.status(200).send("hello");
-});
+router.route("/").post(getFilteredRecords);
 
 module.exports = router;
