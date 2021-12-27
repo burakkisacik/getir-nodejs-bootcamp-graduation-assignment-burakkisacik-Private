@@ -1,6 +1,9 @@
 const express = require("express");
 const colors = require("colors");
 
+const ErrorResponse = require("./utils/ErrorResponse");
+const errorHandler = require("./middleware/error");
+
 const config = require("./config");
 const loaders = require("./loaders");
 
@@ -16,6 +19,8 @@ app.use(express.json());
 
 // Mount Routes
 app.use("/api/v1/records", RecordRoute);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 

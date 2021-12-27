@@ -1,3 +1,4 @@
+const ErrorResponse = require("../utils/ErrorResponse");
 const asyncHandler = require("../middleware/asyncHandler");
 const { findByDateAndCountRange } = require("../services/Records");
 
@@ -5,8 +6,7 @@ const getFilteredRecords = asyncHandler(async (req, res, next) => {
   const filteredRecords = await findByDateAndCountRange(req.body);
 
   if (filteredRecords.length < 1) {
-    res.status(404).send("No records found");
-    return;
+    return next(new ErrorResponse("Not found", 404));
   }
 
   const records = filteredRecords.map((record) => ({
