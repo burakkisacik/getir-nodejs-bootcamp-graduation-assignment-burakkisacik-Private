@@ -1,4 +1,11 @@
 const express = require("express");
+const colors = require("colors");
+
+const config = require("./config");
+const loaders = require("./loaders");
+
+config();
+loaders();
 
 // Routes
 const { RecordRoute } = require("./routes");
