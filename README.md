@@ -19,7 +19,7 @@ A RESTful API with a single endpoint that fetches the data in the provided Mongo
 # Installation
 
 ```Bash
-git clone https://github.com/burakkisacik/getir-nodejs-bootcamp-graduation-assignment-burakkisacik-Private.git
+git clone the repository
 ```
 
 ```Bash
