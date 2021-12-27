@@ -1,0 +1,2 @@
+{"endpoint":"POST /api/v1/records","error":"Not found","level":"error","service":"user-service","statusCode":404}
+{"endpoint":"POST /api/v1/recordss","error":"Endpoint not found : POST /api/v1/recordss","level":"error","service":"user-service","statusCode":404}

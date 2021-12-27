@@ -7,7 +7,7 @@ const hpp = require("hpp");
 const cors = require("cors");
 const colors = require("colors");
 
-const ErrorResponse = require("./utils/ErrorResponse");
+const ErrorResponse = require("./scripts/utils/ErrorResponse");
 const errorHandler = require("./middleware/error");
 
 const config = require("./config");
@@ -23,9 +23,7 @@ const app = express();
 
 app.use(express.json());
 
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
+app.use(morgan("combined"));
 
 // Sanitize data
 app.use(mongoSanitize());
