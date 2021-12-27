@@ -1,4 +1,10 @@
 const express = require("express");
+const morgan = require("morgan");
+const helmet = require("helmet");
+const mongoSanitize = require("express-mongo-sanitize");
+const xss = require("xss-clean");
+const hpp = require("hpp");
+const cors = require("cors");
 const colors = require("colors");
 
 const ErrorResponse = require("./utils/ErrorResponse");
@@ -17,13 +23,43 @@ const app = express();
 
 app.use(express.json());
 
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
+
+// Sanitize data
+app.use(mongoSanitize());
+
+// Set security headers
+app.use(helmet());
+
+// Prevent XSS attacks
+app.use(xss());
+
+// Prevent parameter pollution
+app.use(hpp());
+
+// Enable CORS
+app.use(
+  cors({
+    methods: "*",
+    origin: "*",
+  })
+);
+
 // Mount Routes
 app.use("/api/v1/records", RecordRoute);
 
+// Unhandled routes
+app.use("*", (req, res, next) => {
+  next(
+    new ErrorResponse(
+      `Endpoint not found : ${req.method} ${req.originalUrl}`,
+      404
+    )
+  );
+});
+
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
-});
+module.exports = app;
