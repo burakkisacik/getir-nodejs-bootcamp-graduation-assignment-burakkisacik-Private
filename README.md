@@ -10,6 +10,12 @@
 
 A RESTful API with a single endpoint that fetches the data in the provided MongoDB collection and return the results in the requested format
 
+# Deployed URL
+
+> URL: https://getir-case-study.herokuapp.com/
+
+> Endpoint : POST /api/v1/records
+
 # Installation
 
 ```Bash
@@ -22,6 +28,21 @@ git clone https://github.com/burakkisacik/getir-nodejs-bootcamp-graduation-assig
  npm run dev
 ```
 
+# Run Tests
+
+```Bash
+npm test
+```
+
+## Test Suites
+
+- given request payload is in desired format
+- given request payload is in desired format but not match to any records
+- given request payload's date format is wrong
+- given request payload's count range format is wrong
+- given request payload has extra fields
+- given request payload has missing fields
+
 # Example DB Schema
 
 <p align="center">
@@ -30,45 +51,56 @@ git clone https://github.com/burakkisacik/getir-nodejs-bootcamp-graduation-assig
 
 # Endpoints
 
-| Method | Routes          |            Request Payload             |        Return |
-| ------ | --------------- | :------------------------------------: | ------------: |
-| Post   | /api/v1/records | startDate, endDate, maxCount, minCount | filtered data |
+> POST /api/v1/records
+
+| Parameter | Type    | Description                                |
+| --------- | ------- | ------------------------------------------ |
+| startDate | String  | format => YYYY-MM-DD & results will be gte |
+| endDate   | String  | format => YYYY-MM-DD & results will be lte |
+| minCount  | Integer | results will be greater than minCount      |
+| maxCount  | Integer | results will be less than maxCount         |
 
 # How it works
 
 ## Example Request
 
 ```JavaScript
-const myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-const raw = JSON.stringify({
-  "startDate": "2015-01-01",
-  "endDate": "2016-01-01",
-  "minCount": 0,
-  "maxCount": 100
-});
-
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow'
-};
-
-fetch("http://localhost:3000/api/v1/recordss", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+axios
+  .post("https://getir-case-study-burakkisacik.herokuapp.com/api/v1/records", {
+    startDate: "2015-01-01",
+    endDate: "2016-01-01",
+    minCount: 0,
+    maxCount: 10,
+  })
+  .then((response) => {
+    console.log(response.data);
+  });
 ```
 
 ## Example Response
 
-```JSON
+```JavaScript
 {
-    "startDate" : "2015-01-01",
-    "endDate" : "2016-01-01",
-    "minCount" : 0,
-    "maxCount" : 100
+  code: 0,
+  msg: 'success',
+  records: [
+    {
+      key: 'nYYhzbmi',
+      createdAt: '2015-11-17T03:03:18.052Z',
+      totalCount: 4
+    }
+  ]
 }
 ```
+
+# Technologies
+
+- Node.js
+- Express
+- MongoDB
+- Mongoose
+- Jest & Supertest
+- Winston & Morgan
+- Cors, helmet, xss-clean, hpp, express-mongo-sanitize
+- Colors
+- dotenv
